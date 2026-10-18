@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<p class="eyebrow">ENGLISH LITERATURE</p><h1>Your poetry notebook.</h1><p class="lead">Develop your own observations into evidence-based explanations. Use your authorised copy of the poem for accurate references.</p><p>This is the supplied study list, not a verified complete examination anthology. Course coverage and Telephone Conversation’s supplementary status need edition-specific confirmation.</p>
+<form method="get"><label for="poem-picker">Choose a poem</label><select id="poem-picker" name="poem">{% for title in poems %}<option {% if title == poem %}selected{% endif %}>{{ title }}</option>{% endfor %}</select><button>Open notebook</button></form>
+<h2>{{ poem }}</h2>{% if request.args.get('saved') == '1' %}<p role="status">Notebook saved.</p>{% endif %}
+<form method="post" class="card"><input type="hidden" name="csrf" value="{{ session.csrf }}"><input type="hidden" name="poem" value="{{ poem }}">
+<div class="form-grid">{% for key,label in framework %}<label>{{ label }}<textarea name="{{ key }}" rows="5" maxlength="8000">{{ notes.get(key,'') }}</textarea></label>{% endfor %}</div><p>Notes stay on this machine. Click Save before changing poems. Avoid copying entire copyrighted poems into your notes; record short relevant references and your analysis.</p><button>Save notebook</button></form>
+{% endblock %}

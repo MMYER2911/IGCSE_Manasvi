@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}
+<p class="eyebrow">SUBJECT STUDIO</p><h1>{{ subject.name }}</h1><p class="lead">{{ subject.intro }}</p><p>{{ subject.course }}</p>
+<div class="grid"><a class="card green" href="{{ url_for('practice',subject=subject.name) }}"><h2>Start practice →</h2><p>Choose a topic, difficulty and duration. Save your answers and review feedback.</p></a><a class="card" href="{{ url_for('resources',subject=subject.name) }}"><h2>Find materials →</h2><p>Search this subject’s uploaded resources with document and page references.</p></a>{% if slug == 'literature' %}<a class="card" href="/poetry"><h2>Poetry notebook →</h2><p>Keep your own observations across all nine framework categories.</p></a>{% endif %}</div>
+<h2>Your study priorities</h2><ol>{% for task in subject.tasks %}<li>{{ task }}</li>{% endfor %}</ol>
+<div class="card"><p class="eyebrow">ONE QUESTION TO BEGIN · TUTOR-CREATED</p><h2>{{ subject.opening }}</h2><p>Explain in your own words before looking for evidence. Then use practice to save a response to an available task.</p></div>
+<h2>How to work through a session</h2><p>Recall → guided practice → independent answer → feedback → revision. Aim for 20–30 minutes, adjusted to your school workload. These pages provide study prompts and checklists; live AI conversation is not connected.</p>
+{% endblock %}
