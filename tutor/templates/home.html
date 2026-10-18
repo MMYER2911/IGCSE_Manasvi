@@ -2,9 +2,9 @@
 <p class="eyebrow">IGCSE STUDY COACH</p><h1>Your subjects.<br>One place to begin.</h1>
 <p class="lead">Choose English Literature or English Language, gather your materials, and take one step at a time.</p>
 <div class="grid">
-{% for slug, subject in subjects.items() %}<a class="card {{ 'green' if slug == 'literature' else '' }}" href="{{ url_for('study',slug=slug) }}"><p class="eyebrow">START HERE</p><h2>{{ subject.name }} ↗</h2><p>{{ subject.intro }}</p></a>{% endfor %}
+{% for slug, subject in subjects.items() %}<a class="card {{ 'green' if slug == 'literature' else '' }}" href="{{ url_for('tutor.chat',slug=slug) }}"><p class="eyebrow">START HERE</p><h2>{{ subject.name }} ↗</h2><p>{{ subject.intro }}</p></a>{% endfor %}
 <a class="card" href="/resources"><span class="metric">{{ docs }}</span><h2>Learning resources ↗</h2><p>Upload authorised materials and search passages with source references.</p></a></div>
-<p>{{ questions }} original practice questions · {{ results|length }} completed sessions. These guided study pages do not yet provide live AI tutoring.</p>
+<p>{{ questions }} original practice questions · {{ results|length }} completed sessions. Open a subject to chat with the AI tutor once its model connection is configured.</p>
 <h2>Assessment results</h2><p>Local learner overview. Automatic marks cover definite-answer questions only; extended responses await human review. Parent accounts are a later phase.</p>
 {% if results %}<div class="table-wrap"><table><thead><tr><th>Subject</th><th>Automatic score</th><th>Review status</th><th>Time practising</th><th>Feedback</th></tr></thead><tbody>{% for r in results %}<tr><td>{{ r.subjects }}</td><td>{% if r.total %}{{ r.score }} / {{ r.total }}{% else %}No auto-marked items{% endif %}</td><td>{{ r.pending }} awaiting review</td><td>{{ r.elapsed // 60 }}m {{ r.elapsed % 60 }}s</td><td><a href="{{ url_for('attempt',sid=r.id) }}">Review answers →</a></td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty">No completed sessions yet. Choose a subject above to start.</div>{% endif %}
 {% endblock %}

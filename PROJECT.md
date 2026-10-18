@@ -86,3 +86,7 @@ The parent requested web research for IGCSE resources. Candidate official Pearso
 ## Deployment preparation
 
 Render family-preview configuration is in docs/render-deployment.md. Gunicorn and a mandatory hosted-mode shared passphrase gate are implemented; private routes require login, cookie flags and CSRF are enforced, and login attempts are limited in the single worker. Nineteen tests pass. This is not a separate parent/student identity system. No actual Render deployment is yet verified. Free-hosting SQLite data is disposable; durable storage remains a separate prerequisite for retained schoolwork.
+
+## AI tutor implementation
+
+The parent identified the missing core experience after the initial Render deployment. Literature/Language chat routes and an OpenAI Responses adapter are now implemented, with subject-scoped opt-in source retrieval, actual excerpt/page citations, bounded conversation history, duplicate-request protection and explicit missing-key/error states. All existing documents default to no external AI processing. Details and setup are in docs/ai-tutor.md. Live provider access remains unverified until a valid API key is configured in Render and a generated reply succeeds. This extends the earlier no-AI prototype; earlier status entries describe their respective delivery stages. No model credentials were present in the inspected cloud runtime.

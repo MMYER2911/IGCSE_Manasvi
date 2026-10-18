@@ -20,7 +20,7 @@ Render supplies PORT. Do not add a hard-coded PORT. Keep the factory call and si
 
 The shared passphrase protects application routes, including the library, notebooks, practice and results. Login and static assets are public. `/health` is public and returns a status only. Login requires a CSRF token and allows five attempts per connected peer per minute in the single process. Sign-out requires POST with a CSRF token. No raw password is saved in files; the configured passphrase is hashed in process. Authentication expires after 12 hours or process restart. Password changes take effect after restart and invalidate old login sessions.
 
-This is shared family-preview access, not separate learner/parent accounts, SSO, password recovery or a fully hardened multi-user service. Live AI tutoring, drive syncing and semantic RAG are not connected.
+This is shared family-preview access, not separate learner/parent accounts, SSO, password recovery or a fully hardened multi-user service. Model-backed tutoring is now implemented but needs its own API key and live verification; see ai-tutor.md. Drive syncing and semantic embedding retrieval remain absent.
 
 `TUTOR_DATA_DIR` can optionally point to an explicitly provisioned persistent mount when a later storage decision is made. It stores the database and session key together. Do not point it outside an authorised mount or assume setting it creates a disk. Existing data needs a deliberate backup/migration; changing the path does not copy it.
 
@@ -29,3 +29,7 @@ This is shared family-preview access, not separate learner/parent accounts, SSO,
 Nineteen automated tests cover the learning workflow, schema upgrades, private-route protection, CSRF, authentication/logout, cookie flags, login throttling, fail-closed hosted startup and configurable data directory. A separate Gunicorn hosted-mode smoke check uses generated throwaway credentials and temporary storage to verify health, private redirects and the login page. This verifies the production command locally, not the Render service.
 
 After the parent starts deployment, inspect actual build/deploy logs. Verify `/health`, the unauthenticated redirect to login, correct/wrong passphrase behaviour, both English modules and a disposable practice session. Do not claim deployment, durable storage or parent-device access until those checks are observed.
+
+## Subsequent AI connection
+
+Keep `TUTOR_PASSWORD` for website access. `TUTOR_MODEL_API_KEY` separately connects the model; these are different secrets and should never be interchanged. After setting a valid key and saving/redeploying, verify one genuine tutor reply. Existing resources remain search-only until explicit permission for AI excerpts is enabled.

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}{% block content %}
 <p class="eyebrow">PRIVATE FAMILY PREVIEW</p><h1>Welcome to your study studio.</h1><p class="lead">Enter the passphrase set by your parent to open the learning materials and practice pages.</p>
 <form method="post" class="card"><input type="hidden" name="csrf" value="{{ session.csrf }}"><label>Family passphrase<input type="password" name="password" required maxlength="1024" autocomplete="current-password"></label>{% if error %}<p role="alert">{{ error }}</p>{% endif %}<button>Open study studio →</button></form>
-<p>This prototype provides guided study and practice. Live AI tutoring is not connected.</p>
+<p>This prototype provides guided study and practice. AI conversation requires a configured model connection.</p>
 {% endblock %}

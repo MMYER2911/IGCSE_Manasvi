@@ -9,3 +9,6 @@ if (timer) {
   };
   tick();
 }
+
+const conversation = document.querySelector("[data-chat]");
+if (conversation) conversation.scrollTop = conversation.scrollHeight;

@@ -9,6 +9,7 @@ from .resources import extract
 from .questions import mark
 from .english import SUBJECTS, POEMS, FRAMEWORK
 from .access import init_access
+from .tutoring import init_tutoring
 
 
 def create_app(config=None):
@@ -51,6 +52,7 @@ def create_app(config=None):
         return response
 
     init_access(app)
+    init_tutoring(app)
 
     @app.route('/health')
     def health():
@@ -108,7 +110,7 @@ def create_app(config=None):
                     error = 'Cannot extract this file. Use a valid, unlocked PDF with selectable text (up to 300 pages) or UTF-8 .txt, within the text limit.'
                 else:
                     with db():
-                        cursor = db().execute('INSERT INTO documents (' + ','.join(fields) + ') VALUES (' + ','.join('?' for _ in fields) + ')', metadata)
+                        cursor = db().execute('INSERT INTO documents (' + ','.join(fields) + ',allow_ai) VALUES (' + ','.join('?' for _ in fields) + ',?)', metadata + [int(request.form.get('allow_ai') == 'yes')])
                         db().executemany('INSERT INTO chunks(document_id,page,text) VALUES (?,?,?)', [(cursor.lastrowid, page, text) for page, text in chunks])
                     return redirect(url_for('resources'))
         query = request.args.get('q', '').strip()[:200]
@@ -123,6 +125,17 @@ def create_app(config=None):
         return render_template('resources.html', error=error, query=query, hits=hits,
           subject=subject, subjects=[r[0] for r in db().execute('SELECT DISTINCT subject FROM documents ORDER BY subject')],
           documents=db().execute("SELECT * FROM documents WHERE ?='' OR subject=? ORDER BY id DESC", (subject,subject)).fetchall())
+
+    @app.route('/resources/<int:document_id>/ai-access', methods=['POST'])
+    def resource_ai_access(document_id):
+        enabled = request.form.get('allow_ai') == 'yes'
+        if enabled and request.form.get('authorised') != 'yes':
+            abort(400, 'Confirm permission to send excerpts to the AI provider.')
+        updated = db().execute('UPDATE documents SET allow_ai=? WHERE id=?', (int(enabled), document_id))
+        db().commit()
+        if not updated.rowcount:
+            abort(404)
+        return redirect(url_for('resources'))
 
     @app.route('/practice', methods=['GET','POST'])
     def practice():

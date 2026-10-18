@@ -30,6 +30,13 @@ def init_db():
       answer TEXT, score INTEGER, PRIMARY KEY(session_id, question_id));
     CREATE TABLE IF NOT EXISTS poetry_notes (
       poem TEXT PRIMARY KEY, notes TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+    CREATE TABLE IF NOT EXISTS tutor_threads (
+      id TEXT PRIMARY KEY, subject TEXT NOT NULL, created REAL NOT NULL);
+    CREATE TABLE IF NOT EXISTS tutor_turns (
+      id INTEGER PRIMARY KEY, thread_id TEXT NOT NULL REFERENCES tutor_threads(id),
+      request_key TEXT NOT NULL, prompt TEXT NOT NULL, answer TEXT,
+      citations TEXT NOT NULL DEFAULT '[]', created REAL NOT NULL,
+      status TEXT NOT NULL DEFAULT 'pending', UNIQUE(thread_id, request_key));
     ''')
     # Additive migrations preserve databases created by the mathematics prototype.
     columns = {row['name'] for row in db().execute('PRAGMA table_info(responses)')}
@@ -38,6 +45,9 @@ def init_db():
     columns = {row['name'] for row in db().execute('PRAGMA table_info(sessions)')}
     if 'expired' not in columns:
         db().execute('ALTER TABLE sessions ADD COLUMN expired INTEGER NOT NULL DEFAULT 0')
+    columns = {row['name'] for row in db().execute('PRAGMA table_info(documents)')}
+    if 'allow_ai' not in columns:
+        db().execute('ALTER TABLE documents ADD COLUMN allow_ai INTEGER NOT NULL DEFAULT 0')
     from .questions import SEED
     from .english import ENGLISH_SEED
     for question in SEED + ENGLISH_SEED:
