@@ -9,6 +9,7 @@ from .english import SUBJECTS, POEMS, FRAMEWORK
 from .model import OpenAITutor, TutorUnavailable
 from .storage import db
 from .marking import prepare, rubrics, marking_instructions, validate_assessment
+from .videos import recommendations
 
 bp = Blueprint('tutor', __name__)
 
@@ -170,6 +171,8 @@ def chat(slug):
                     db().commit()
                     return redirect(url_for('tutor.chat',slug=slug))
     turns = [dict(row, sources=json.loads(row['citations']), assessment=json.loads(row['assessment']) if row['assessment'] else None) for row in db().execute('SELECT * FROM tutor_turns WHERE thread_id=? ORDER BY id',(thread_id,))]
+    for turn in turns:
+        turn['videos'] = recommendations(SUBJECTS[slug]['name'],rubric_id=turn['assessment']['task']['id']) if turn['assessment'] else []
     return render_template('tutor.html', slug=slug, subject=SUBJECTS[slug], connected=bool(provider),
         turns=turns, error=error, prompt=prompt, mode=mode, rubrics=rubrics(SUBJECTS[slug]['name']), request_key=secrets.token_urlsafe(24)), status
 

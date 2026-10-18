@@ -43,6 +43,20 @@ def init_db():
       question_text TEXT NOT NULL, max_marks INTEGER NOT NULL, pages TEXT NOT NULL,
       confirmed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       UNIQUE(document_id,component,exam_session,question_number));
+    CREATE TABLE IF NOT EXISTS learning_videos (
+      id INTEGER PRIMARY KEY, youtube_id TEXT NOT NULL, subject TEXT NOT NULL,
+      topic TEXT NOT NULL, title TEXT NOT NULL, channel TEXT NOT NULL,
+      focus TEXT NOT NULL, start_seconds INTEGER NOT NULL DEFAULT 0,
+      end_seconds INTEGER, embed_available INTEGER NOT NULL DEFAULT 0,
+      metadata_checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      status TEXT NOT NULL DEFAULT 'candidate', review TEXT,
+      UNIQUE(youtube_id,subject));
+    CREATE TABLE IF NOT EXISTS video_question_links (
+      video_id INTEGER NOT NULL REFERENCES learning_videos(id),
+      question_id INTEGER NOT NULL REFERENCES questions(id), PRIMARY KEY(video_id,question_id));
+    CREATE TABLE IF NOT EXISTS video_rubric_links (
+      video_id INTEGER NOT NULL REFERENCES learning_videos(id),
+      rubric_id INTEGER NOT NULL REFERENCES marking_rubrics(id), PRIMARY KEY(video_id,rubric_id));
     ''')
     # Additive migrations preserve databases created by the mathematics prototype.
     columns = {row['name'] for row in db().execute('PRAGMA table_info(responses)')}

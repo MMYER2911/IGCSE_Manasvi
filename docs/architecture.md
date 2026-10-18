@@ -37,3 +37,7 @@ Fourteen automated tests pass. Added coverage includes essay exclusion from auto
 ## Model-backed tutoring extension
 
 The original no-AI milestone is now extended by tutoring.py (subject conversations, bounded history and permission-scoped FTS retrieval) and model.py (server-only OpenAI Responses transport). Chat source labels map to saved chunk/page metadata; unmatched references are rejected. Existing resource rows migrate to allow_ai=0 and need explicit external-processing permission. This is lexical RAG when sources are cited, and labelled general tutoring otherwise. No live model evaluation is claimed: provider tests simulate responses, and the deployed service still needs a valid API binding and an actual successful reply. See ai-tutor.md.
+
+## Video explanation module
+
+`videos.py` owns validated YouTube IDs, bounded public oEmbed metadata requests, stored review evidence, recommendation eligibility/ranking and opt-in player construction. Question/rubric link tables keep associations explicit. Only reviewed recommendations appear alongside post-submission practice and scheme-specific tutor feedback. No video contents are fed to the LLM; there is no automatic video understanding or web-review scraping. See video-recommendations.md for access and validation status.

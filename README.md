@@ -40,3 +40,7 @@ Subject cards now open AI tutoring conversations. See [docs/ai-tutor.md](docs/ai
 ## Check answers against a scheme
 
 Use Mark schemes to register an exact paper/question against a permitted upload, then choose Check answer in the tutor. The score is provisional, supported by scheme-page references, and kept separate from automatic practice results. Missing, mismatched or unassessable rubrics receive no score. See [docs/mark-scheme-assessment.md](docs/mark-scheme-assessment.md). The current suite has 57 passing tests using simulated model responses; official online currency and real AI marking remain unverified.
+
+## Explanation videos
+
+Videos supports public YouTube metadata lookup, explicit parent/teacher review, exact-question links and opt-in embedded playback with a fallback link. Only sufficiently reviewed entries become recommendations; no real videos are seeded or vetted yet. See [docs/video-recommendations.md](docs/video-recommendations.md). The current suite has 67 tests with simulated provider responses. Cloud research remains blocked until the pending network change is applied.

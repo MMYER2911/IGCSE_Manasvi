@@ -11,6 +11,7 @@ from .english import SUBJECTS, POEMS, FRAMEWORK
 from .access import init_access
 from .tutoring import init_tutoring
 from .marking import bp as marking_bp
+from .videos import bp as videos_bp, recommendations
 
 
 def create_app(config=None):
@@ -48,13 +49,15 @@ def create_app(config=None):
     @app.after_request
     def headers(response):
         response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'; form-action 'self'"
+        frames = 'https://www.youtube-nocookie.com' if request.endpoint=='videos.watch' else "'none'"
+        response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'; form-action 'self'; frame-src "+frames
         response.headers['Cache-Control'] = 'no-store'
         return response
 
     init_access(app)
     init_tutoring(app)
     app.register_blueprint(marking_bp)
+    app.register_blueprint(videos_bp)
 
     @app.route('/health')
     def health():
@@ -75,7 +78,7 @@ def create_app(config=None):
     def study(slug):
         if slug not in SUBJECTS:
             abort(404)
-        return render_template('study.html', subject=SUBJECTS[slug], slug=slug)
+        return render_template('study.html', subject=SUBJECTS[slug], slug=slug,videos=recommendations(SUBJECTS[slug]['name']))
 
     @app.route('/poetry', methods=['GET', 'POST'])
     def poetry():
@@ -197,7 +200,8 @@ def create_app(config=None):
             q['choices'] = json.loads(q['options'])
         responses = {r['question_id']:dict(r) for r in db().execute('SELECT * FROM responses WHERE session_id=?',(sid,))}
         return render_template('attempt.html', record=record, questions=questions, remaining=remaining, responses=responses,
-            subject=questions[0]['subject'], pending=sum(r['status']=='awaiting_review' for r in responses.values()))
+            subject=questions[0]['subject'], pending=sum(r['status']=='awaiting_review' for r in responses.values()),
+            question_videos={q['id']:recommendations(q['subject'],question_id=q['id']) for q in questions} if record['submitted'] is not None else {})
 
     with app.app_context():
         init_db()

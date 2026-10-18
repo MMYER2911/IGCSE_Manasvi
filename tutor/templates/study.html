@@ -4,4 +4,4 @@
 <h2>Your study priorities</h2><ol>{% for task in subject.tasks %}<li>{{ task }}</li>{% endfor %}</ol>
 <div class="card"><p class="eyebrow">ONE QUESTION TO BEGIN · TUTOR-CREATED</p><h2>{{ subject.opening }}</h2><p>Explain in your own words before looking for evidence. Then use practice to save a response to an available task.</p></div>
 <h2>How to work through a session</h2><p>Recall → guided practice → independent answer → feedback → revision. Aim for 20–30 minutes, adjusted to your school workload. Open the AI tutor above for conversation when a model connection is configured. These study priorities and checklists remain available without API access.</p>
-{% endblock %}
+{% include '_video_cards.html' %}{% endblock %}

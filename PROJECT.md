@@ -94,3 +94,7 @@ The parent identified the missing core experience after the initial Render deplo
 ## Exact-scheme answer checking
 
 The parent requested scheme-based marking and current official research. The app now provides a Mark schemes registry and Check answer mode with explicit question/paper identity, complete authorised rubric pages, structured provisional scoring and server validation. Assessments remain separate from automatic practice scores. The 57-test suite passes with simulated providers; live model quality is not verified. Official internet research remains blocked because Pearson is present only in the draft, not the enforced cloud policy. No scheme is described as latest/independently verified. See docs/mark-scheme-assessment.md for setup, matching rules and research limits.
+
+## Video explanations and reviews
+
+The parent requested question-specific YouTube explanations selected using review evidence. The app now has metadata-checked candidates, manual evidence-based quality review, question/rubric mapping, reviewed recommendations and opt-in privacy-enhanced embeds with original-link fallback. Quality is not inferred from views/likes. No real videos or reviews have been inspected/recommended yet; running cloud policy still blocks the sites. YouTube domains were added to the same pending draft as Pearson, preserving prior domains. Details and limitations are in docs/video-recommendations.md. The 67-test suite uses simulated YouTube/model responses; real playback and content-review quality remain unverified.
