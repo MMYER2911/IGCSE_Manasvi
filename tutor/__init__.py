@@ -1,4 +1,5 @@
 import json
+import os
 import secrets
 import time
 from pathlib import Path
@@ -7,16 +8,22 @@ from .storage import db, init_db
 from .resources import extract
 from .questions import mark
 from .english import SUBJECTS, POEMS, FRAMEWORK
+from .access import init_access
 
 
 def create_app(config=None):
-    app = Flask(__name__, instance_relative_config=True)
+    data_dir = os.environ.get('TUTOR_DATA_DIR')
+    app = Flask(__name__, instance_relative_config=True,
+                **({'instance_path':str(Path(data_dir).resolve())} if data_dir else {}))
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
     key_file = Path(app.instance_path) / 'session.key'
     if not key_file.exists():
         key_file.write_bytes(secrets.token_bytes(32))
         key_file.chmod(0o600)
+    hosted = os.environ.get('RENDER', '').lower() == 'true'
     app.config.update(SECRET_KEY=key_file.read_bytes(), DATABASE=str(Path(app.instance_path) / 'tutor.sqlite'),
+                      HOSTED=hosted, ACCESS_PASSWORD=os.environ.get('TUTOR_PASSWORD'),
+                      SESSION_COOKIE_SECURE=hosted,
                       MAX_CONTENT_LENGTH=10 * 1024 * 1024, SESSION_COOKIE_SAMESITE='Lax', SESSION_COOKIE_HTTPONLY=True)
     if config:
         app.config.update(config)
@@ -29,6 +36,8 @@ def create_app(config=None):
 
     @app.before_request
     def csrf():
+        if request.endpoint == 'health':
+            return
         if 'csrf' not in session:
             session['csrf'] = secrets.token_hex(24)
         if request.method == 'POST' and not secrets.compare_digest(request.form.get('csrf', ''), session['csrf']):
@@ -38,7 +47,15 @@ def create_app(config=None):
     def headers(response):
         response.headers['X-Content-Type-Options'] = 'nosniff'
         response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'; form-action 'self'"
+        response.headers['Cache-Control'] = 'no-store'
         return response
+
+    init_access(app)
+
+    @app.route('/health')
+    def health():
+        db().execute('SELECT 1')
+        return {'status':'ok'}
 
     @app.route('/')
     def home():

@@ -82,3 +82,7 @@ Compare these with the current prototype before selecting a final stack. Preserv
 ## External reference collection
 
 The parent requested web research for IGCSE resources. Candidate official Pearson references and their verification/access status are recorded in docs/reference-library.md. The initial official-page request was denied by the environment network proxy; a Pearson domain addition was saved to the configuration draft. No current contents or search results were verified, and no linked documents were imported. Resume official-source research after the network configuration is applied.
+
+## Deployment preparation
+
+Render family-preview configuration is in docs/render-deployment.md. Gunicorn and a mandatory hosted-mode shared passphrase gate are implemented; private routes require login, cookie flags and CSRF are enforced, and login attempts are limited in the single worker. Nineteen tests pass. This is not a separate parent/student identity system. No actual Render deployment is yet verified. Free-hosting SQLite data is disposable; durable storage remains a separate prerequisite for retained schoolwork.

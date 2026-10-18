@@ -21,10 +21,14 @@ Begin on the home screen and choose English Literature or English Language. Guid
 .venv/bin/python -m pytest -q
 ```
 
-Data and the local session key live in ignored `instance/`; back up that directory for local persistence. Keep the development server bound to loopback. This prototype has no user authentication or parent/student isolation and must not be deployed for real student data. Access control, retention/deletion tooling and production deployment are required before multi-user use.
+Data and the local session key live in ignored `instance/`; back up that directory for local persistence. Keep the development server bound to loopback. Local mode has no login by default and must stay bound to loopback. Render mode requires a private family passphrase before startup; it still has no separate parent/student accounts. Durable storage, retention/deletion tooling and stronger identity controls are required before relying on it for retained student work.
 
 See [architecture and phased delivery](docs/architecture.md). No scraping, AI generation, cloud-drive connection or external document transmission happens in this milestone.
 
 Project coordination across conversations is tracked in [PROJECT.md](PROJECT.md).
 
 English capabilities were recreated from the supplied handoffs because the other chat’s source ZIP was unavailable. Validation: 14 automated tests and six local HTTP entry points passed. No browser automation was performed.
+
+## Hosted family preview
+
+Render deployment settings, passphrase setup, free-hosting data-loss limits and verification are documented in [docs/render-deployment.md](docs/render-deployment.md). Gunicorn is included. The app refuses to boot on Render without `TUTOR_PASSWORD` (at least 16 characters). Set its value securely in Render, never in source or chat. There is no deployed website verified yet. The current suite has 19 passing tests.
