@@ -98,3 +98,7 @@ The parent requested scheme-based marking and current official research. The app
 ## Video explanations and reviews
 
 The parent requested question-specific YouTube explanations selected using review evidence. The app now has metadata-checked candidates, manual evidence-based quality review, question/rubric mapping, reviewed recommendations and opt-in privacy-enhanced embeds with original-link fallback. Quality is not inferred from views/likes. No real videos or reviews have been inspected/recommended yet; running cloud policy still blocks the sites. YouTube domains were added to the same pending draft as Pearson, preserving prior domains. Details and limitations are in docs/video-recommendations.md. The 67-test suite uses simulated YouTube/model responses; real playback and content-review quality remain unverified.
+
+## First uploaded Literature assessment collection
+
+The parent supplied Past Paper ENGLISH LITERATURE.pdf. Direct inspection identifies it as Pearson 4ET1 Sample Assessment Materials, Issue 3, with a 2024 copyright notice—not the June 2022 past paper. It is archived privately and indexed in the current cloud learning database (144 PDF pages, 363 chunks); AI sharing remains off. Only metadata/page mapping is committed publicly in docs/resources/pearson-4et1-sams-issue3.md. It has not been imported into the separate Render database. A page-boundary extraction defect exposed by this publisher layout was fixed with bounded PDFium extraction; 68 tests pass.

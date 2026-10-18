@@ -96,3 +96,23 @@ def test_pdf_extraction_and_rejection():
         extract('empty.txt',b' ')
     with pytest.raises(ValueError):
         extract('bad.exe',b'bad')
+
+
+def test_translated_pdf_spreads_keep_correct_page_citations():
+    from pypdf import PdfWriter
+    from pypdf.generic import DictionaryObject,NameObject,DecodedStreamObject
+    from tutor.resources import extract
+    writer=PdfWriter()
+    font=writer._add_object(DictionaryObject({NameObject('/Type'):NameObject('/Font'),NameObject('/Subtype'):NameObject('/Type1'),NameObject('/BaseFont'):NameObject('/Helvetica')}))
+    for shift in (0,-600):
+        page=writer.add_blank_page(600,800)
+        page[NameObject('/Resources')]=DictionaryObject({NameObject('/Font'):DictionaryObject({NameObject('/F1'):font})})
+        stream=DecodedStreamObject()
+        stream.set_data(f'q 1 0 0 1 {shift} 0 cm BT /F1 12 Tf 40 600 Td (LEFT PAGE) Tj ET BT /F1 12 Tf 640 600 Td (RIGHT PAGE) Tj ET Q'.encode())
+        page[NameObject('/Contents')]=writer._add_object(stream)
+    output=io.BytesIO();writer.write(output)
+    chunks=extract('spread.pdf',output.getvalue())
+    first=''.join(text for page,text in chunks if page==1)
+    second=''.join(text for page,text in chunks if page==2)
+    assert 'LEFT PAGE' in first and 'RIGHT PAGE' not in first
+    assert 'RIGHT PAGE' in second and 'LEFT PAGE' not in second

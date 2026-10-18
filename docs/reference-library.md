@@ -36,3 +36,7 @@ Authorised school notes remain in the parent's linked Year 10 OneDrive folder an
 ## Mark-scheme follow-up
 
 On 19 October 2026 (Singapore), runtime inspection still showed Pearson absent from the enforced network policy and present in the pending draft only. Current official editions, errata and paper-specific schemes remain unverified. Exact uploaded-scheme question matching and provisional AI assessment are now implemented separately; see mark-scheme-assessment.md. Newest is not a substitute for matching the actual paper and revision.
+
+## Uploaded source now available locally
+
+The parent supplied the 144-page Literature SAMs PDF. Direct file inspection identifies Issue 3 and the 2024 copyright notice; this is evidence about the uploaded file, not live verification of the candidate publisher URL or latest edition. It is indexed privately in the current cloud database. See resources/pearson-4et1-sams-issue3.md for provenance, page mapping, access state and the separate Render upload step.
