@@ -78,3 +78,7 @@ Compare these with the current prototype before selecting a final stack. Preserv
 - Provide one accessible interface through a separate deployment step, with authentication and appropriate private data storage before real student use. The current server is loopback-only inside the cloud environment; it is not a URL the parent can open on their own computer.
 - Record the implementation in Git and report remote persistence separately; local files are not evidence of a push.
 - Verify access to the specified Year 10 folder before ingestion; do not treat a saved network draft as successful access.
+
+## External reference collection
+
+The parent requested web research for IGCSE resources. Candidate official Pearson references and their verification/access status are recorded in docs/reference-library.md. The initial official-page request was denied by the environment network proxy; a Pearson domain addition was saved to the configuration draft. No current contents or search results were verified, and no linked documents were imported. Resume official-source research after the network configuration is applied.
