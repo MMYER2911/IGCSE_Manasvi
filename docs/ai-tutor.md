@@ -47,3 +47,7 @@ Conversations, citations and permission flags live in the same SQLite data direc
 The automated suite checks source/subject permission filters, cited reply persistence, history/resume, duplicate requests, failures, invalid citations, output escaping, revocation, separate subject threads, new-conversation/CSRF behaviour, input/concurrency/burst limits, explicit missing-key handling and request/response/error handling for the OpenAI adapter. Provider transport is simulated: no real model, credential or paid API call is used. Existing assessment/login/upload tests remain included.
 
 An actual Render model reply, factual/citation quality evaluation and full browser tutoring flow remain unverified until configuration and functional testing.
+
+## Subsequent exact-scheme assessment
+
+Check answer mode now supplies an explicitly registered paper/question and complete rubric page selection, requests structured output and validates provisional marks before recording them. Study chat remains qualitative. See mark-scheme-assessment.md for workflow, metadata confirmation, score validation and the still-blocked official internet verification. No live AI assessment is claimed.

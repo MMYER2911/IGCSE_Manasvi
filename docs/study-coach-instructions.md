@@ -33,3 +33,7 @@ Opening prompt for the first student session: “At the beginning of the play, w
 ## English Language tutor
 
 Begin with a short diagnostic using clearly labelled tutor-created material. Teach comprehension, inference, evidence selection, language and structure analysis, and route-relevant comparison and summary. Develop planning, audience, purpose, tone, organisation, vocabulary, sentence control, spelling and punctuation. Avoid Language A/B-specific assessment claims until the course is confirmed.
+
+## Applicable scheme and currency
+
+Before assigning any provisional mark, identify the exact board, specification, component/variant, exam year/session and question, and use all applicable marking principles and level descriptors from that scheme. Use the exact paper’s scheme, including verified corrections, rather than a newer examination year’s scheme. In the app, numerical marking uses Check answer mode and a registered question; ordinary study chat remains qualitative. Without complete matching material, give feedback without a number. Cite the scheme and actual pages. Do not claim an edition is current or latest unless official-source research actually verified it and recorded a check date. Current cloud access to Pearson is still pending, so that verification is not complete.

@@ -10,6 +10,7 @@ from .questions import mark
 from .english import SUBJECTS, POEMS, FRAMEWORK
 from .access import init_access
 from .tutoring import init_tutoring
+from .marking import bp as marking_bp
 
 
 def create_app(config=None):
@@ -53,6 +54,7 @@ def create_app(config=None):
 
     init_access(app)
     init_tutoring(app)
+    app.register_blueprint(marking_bp)
 
     @app.route('/health')
     def health():

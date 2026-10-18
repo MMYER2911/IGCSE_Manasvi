@@ -36,3 +36,7 @@ Render deployment settings, passphrase setup, free-hosting data-loss limits and 
 ## AI tutor connection
 
 Subject cards now open AI tutoring conversations. See [docs/ai-tutor.md](docs/ai-tutor.md) to connect `TUTOR_MODEL_API_KEY` in Render and verify the first real reply. Without a key, the tutor shows a setup state. Model integration is tested with simulated responses; live API behaviour is not yet verified. The latest suite contains 37 tests. The default model is `gpt-4.1-mini`; API usage is billed separately from ChatGPT subscriptions.
+
+## Check answers against a scheme
+
+Use Mark schemes to register an exact paper/question against a permitted upload, then choose Check answer in the tutor. The score is provisional, supported by scheme-page references, and kept separate from automatic practice results. Missing, mismatched or unassessable rubrics receive no score. See [docs/mark-scheme-assessment.md](docs/mark-scheme-assessment.md). The current suite has 57 passing tests using simulated model responses; official online currency and real AI marking remain unverified.

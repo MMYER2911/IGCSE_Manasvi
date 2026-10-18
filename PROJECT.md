@@ -90,3 +90,7 @@ Render family-preview configuration is in docs/render-deployment.md. Gunicorn an
 ## AI tutor implementation
 
 The parent identified the missing core experience after the initial Render deployment. Literature/Language chat routes and an OpenAI Responses adapter are now implemented, with subject-scoped opt-in source retrieval, actual excerpt/page citations, bounded conversation history, duplicate-request protection and explicit missing-key/error states. All existing documents default to no external AI processing. Details and setup are in docs/ai-tutor.md. Live provider access remains unverified until a valid API key is configured in Render and a generated reply succeeds. This extends the earlier no-AI prototype; earlier status entries describe their respective delivery stages. No model credentials were present in the inspected cloud runtime.
+
+## Exact-scheme answer checking
+
+The parent requested scheme-based marking and current official research. The app now provides a Mark schemes registry and Check answer mode with explicit question/paper identity, complete authorised rubric pages, structured provisional scoring and server validation. Assessments remain separate from automatic practice scores. The 57-test suite passes with simulated providers; live model quality is not verified. Official internet research remains blocked because Pearson is present only in the draft, not the enforced cloud policy. No scheme is described as latest/independently verified. See docs/mark-scheme-assessment.md for setup, matching rules and research limits.

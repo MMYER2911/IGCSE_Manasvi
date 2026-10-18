@@ -4,7 +4,7 @@
 
 Start with Pearson Edexcel International GCSE English Literature and English Language. Literature 4ET1 is the working specification; year and examination/coursework route are unconfirmed. Language A (4EA1) versus B (4EB1) is unconfirmed. Do not mix their examination requirements or assume the nine supplied poems form a complete anthology.
 
-This is a source catalogue, not an indexed document collection. No linked content has been downloaded, licensed for reuse or supplied to an AI tutor by creating this file. Live retrieval and automatic source discovery are not implemented.
+This is a source catalogue, not an indexed document collection. No linked content has been downloaded, licensed for reuse or supplied to an AI tutor by creating this file. Live browsing of these links and automatic official-source discovery are not implemented. The later tutor implementation can retrieve from explicitly AI-approved uploaded documents; catalogue links alone are not retrieval content.
 
 A read-only request to Pearson's Literature landing page on 18 October 2026 was denied by the cloud network proxy with HTTP 403 before reaching Pearson. `qualifications.pearson.com` was absent from the enforced custom domain list. The domain addition was saved in the environment configuration draft, preserving the existing OneDrive domains. It must be applied through environment settings before affected research can resume. This is an environment access restriction, not evidence that Pearson requires authentication for these particular links.
 
@@ -32,3 +32,7 @@ The official [Literature qualification landing page](https://qualifications.pear
 ## User-owned school materials
 
 Authorised school notes remain in the parent's linked Year 10 OneDrive folder and descendants only. Do not browse other OneDrive folders. The gender knowledge organiser, June 2022 paper and homework booklet are not available in this workspace. No OneDrive materials have been imported.
+
+## Mark-scheme follow-up
+
+On 19 October 2026 (Singapore), runtime inspection still showed Pearson absent from the enforced network policy and present in the pending draft only. Current official editions, errata and paper-specific schemes remain unverified. Exact uploaded-scheme question matching and provisional AI assessment are now implemented separately; see mark-scheme-assessment.md. Newest is not a substitute for matching the actual paper and revision.

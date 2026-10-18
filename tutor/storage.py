@@ -37,6 +37,12 @@ def init_db():
       request_key TEXT NOT NULL, prompt TEXT NOT NULL, answer TEXT,
       citations TEXT NOT NULL DEFAULT '[]', created REAL NOT NULL,
       status TEXT NOT NULL DEFAULT 'pending', UNIQUE(thread_id, request_key));
+    CREATE TABLE IF NOT EXISTS marking_rubrics (
+      id INTEGER PRIMARY KEY, document_id INTEGER NOT NULL REFERENCES documents(id),
+      component TEXT NOT NULL, exam_session TEXT NOT NULL, question_number TEXT NOT NULL,
+      question_text TEXT NOT NULL, max_marks INTEGER NOT NULL, pages TEXT NOT NULL,
+      confirmed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(document_id,component,exam_session,question_number));
     ''')
     # Additive migrations preserve databases created by the mathematics prototype.
     columns = {row['name'] for row in db().execute('PRAGMA table_info(responses)')}
@@ -48,6 +54,9 @@ def init_db():
     columns = {row['name'] for row in db().execute('PRAGMA table_info(documents)')}
     if 'allow_ai' not in columns:
         db().execute('ALTER TABLE documents ADD COLUMN allow_ai INTEGER NOT NULL DEFAULT 0')
+    columns = {row['name'] for row in db().execute('PRAGMA table_info(tutor_turns)')}
+    if 'assessment' not in columns:
+        db().execute('ALTER TABLE tutor_turns ADD COLUMN assessment TEXT')
     from .questions import SEED
     from .english import ENGLISH_SEED
     for question in SEED + ENGLISH_SEED:
